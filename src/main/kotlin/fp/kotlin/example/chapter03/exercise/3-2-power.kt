@@ -9,9 +9,18 @@ package fp.kotlin.example.chapter03.exercise
  * fun power(x: Double, n: Int): Double
  */
 
+/**
+ * When Expression Reference
+ * https://kotlinlang.org/docs/control-flow.html#when-expression
+ */
+
 fun main() {
+    println(power(5.0, 2))
     require(25.0 == power(5.0, 2))
     require(1024.0 == power(2.0, 10))
 }
 
-private fun power(x: Double, n: Int): Double = TODO()
+private fun power(x: Double, n: Int): Double = when(n) {
+    0 -> 1.0
+    else -> x * power(x, n-1);
+}
