@@ -14,4 +14,7 @@ fun main() {
     require(3628800 == factorial(10))
 }
 
-private tailrec fun factorial(n: Int, acc: Int = 1): Int = TODO()
+private tailrec fun factorial(n: Int, acc: Int = 1): Int = when (n) {
+    0 -> acc
+    else -> factorial(n-1, n * acc)
+}

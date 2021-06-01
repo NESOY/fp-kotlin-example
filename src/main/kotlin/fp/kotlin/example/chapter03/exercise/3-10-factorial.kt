@@ -13,4 +13,25 @@ fun main() {
     require(3628800 == factorial(10))
 }
 
-private fun factorial(n: Int): Int = TODO()
+val memo = mutableMapOf<Int, Int>()
+
+private fun factorial(n: Int): Int = when (n) {
+    1 -> 1
+    else -> {
+        if(memo[n] != null){
+            memo[n]
+        }
+
+        val sum = n * factorial(n-1)
+        memo[n] = sum
+        sum
+    }
+}
+
+
+/*
+Refactoring Point
+1. val -> var 로 선언하기
+2. memo pattern 추출하기
+3. null handling 잘해보기..
+ */

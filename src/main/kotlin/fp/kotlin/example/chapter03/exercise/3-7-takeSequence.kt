@@ -17,7 +17,7 @@ fun main() {
 }
 
 /**
- * 이해가 잘 안됨
+ * common 연산자 오퍼레이터 확인하기
  */
 private fun takeSequence(n: Int, sequence: Sequence<Int>): List<Int> = when {
     n <= 0 -> listOf()
