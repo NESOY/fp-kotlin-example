@@ -14,4 +14,4 @@ fun main() {
     require(maxComposePower(list2) == 169)
 }
 
-fun maxComposePower(list: List<Int>): Int = TODO()
+fun maxComposePower(list: List<Int>): Int = power(max(list))

@@ -14,22 +14,37 @@ package fp.kotlin.example.chapter04.exercise
 
 class PartialFunction<P, R>(
         private val condition: (P) -> Boolean,
-        private val f: (P) -> R) :(P) -> R {
+        private val f: (P) -> R
+) : (P) -> R {
 
-    override fun invoke(p: P): R {
-        if (condition(p)) {
-            return f(p)
-        } else {
-            throw IllegalArgumentException("$p isn't supported.")
-        }
+//    override fun invoke(p: P): R {
+//        if (condition(p)) {
+//            return f(p)
+//        } else {
+//            throw IllegalArgumentException("$p isn't supported.")
+//        }
+//    }
+
+    override fun invoke(p: P): R = when {
+        condition(p) -> f(p)
+        else -> throw IllegalArgumentException("$p isn't supported.")
     }
 
     fun isDefinedAt(p: P): Boolean = condition(p)
 
-    fun invokeOrElse(p: P, default: R): R = TODO()
+    //`invokeOrElse`` 함수는 입력 값 ``p``가 조건에 맞지 않을때 기본값 ``default``를 반환한다.
+    fun invokeOrElse(p: P, default: R): R = when {
+        condition(p) -> f(p)
+        else -> default
+    }
 
+    //``orElse`` 함수는 ``PartialFunction``의 입력값 ``p``가 조건에 맞으면 ``PartialFunction``을 그대로(this) 반환하고, 조건에 맞지 않으면 ``that``을 반환한다.
     fun orElse(that: PartialFunction<P, R>): PartialFunction<P, R> =
-            PartialFunction({ it: P -> this.isDefinedAt(it) || that.isDefinedAt(it) }, { it: P -> TODO() })
+            PartialFunction({ it: P -> this.isDefinedAt(it) || that.isDefinedAt(it) }, { it: P -> when {
+                this.isDefinedAt(it) -> this(it)
+                that.isDefinedAt(it) -> that(it)
+                else -> throw IllegalArgumentException("$it method")
+            }})
 }
 
 fun <P, R> ((P) -> R).toPartialFunction(definedAt: (P) -> Boolean)

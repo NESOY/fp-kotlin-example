@@ -11,4 +11,13 @@ fun main() {
     require(listOf('h', 'e', 'l', 'l', 'o') == takeWhile({ p -> ' ' != p }, "hello world".toList()))
 }
 
-private tailrec fun <P> takeWhile(predicate: (P) -> Boolean, list: List<P>, acc: List<P> = listOf()): List<P> = TODO()
+private tailrec fun <P> takeWhile(predicate: (P) -> Boolean, list: List<P>, acc: List<P> = listOf()): List<P> = when {
+    !predicate(list[0]) || list.isEmpty() -> acc
+    predicate(list[0]) -> takeWhile(predicate, list.drop(1), acc + listOf(list[0]))
+    else -> takeWhile(predicate, list.drop(1), acc)
+}
+
+/*
+Refactoring
+-> predicate 조건을 제거할 수 있음. -> !predicated의 반대 else로 할 수 있음
+ */
