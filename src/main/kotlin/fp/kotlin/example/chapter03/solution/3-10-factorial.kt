@@ -11,6 +11,8 @@ fun main() {
     println(factorial(4))   // 24
     println(factorial(7))   // 5040
     println(factorial(10))  // 3628800
+
+    memo[10] = 10
 }
 
 private var memo = Array(100) { -1 }
