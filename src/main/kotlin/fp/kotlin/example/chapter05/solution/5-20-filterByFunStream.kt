@@ -22,7 +22,7 @@ fun main() {
         .filter { it % 2 == 0 } == funStreamOf(2, 4))
     require(funStreamOf(1, 2, 3, 4, 5)
         .filter { it > 6 } == FunStream.Nil)
-    require((1..100000000)
+    require((1..1_0000_0000)
         .toFunStream()
         .filter { it > 100 }
         .getHead() == 101)

@@ -24,5 +24,8 @@ fun main() {
 
 fun <T, K> FunList<T>.groupBy(f: (T) -> K): Map<K, FunList<T>> =
     foldRight(emptyMap()) { value, acc ->
-        acc.plus(f(value) to (acc.getOrElse(f(value)) { funListOf() }.addHead(value)))
+        acc.plus(
+            f(value)
+                    to
+            (acc.getOrElse(f(value)) { funListOf() }.addHead(value)))
     }

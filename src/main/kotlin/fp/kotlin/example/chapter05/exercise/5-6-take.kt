@@ -1,9 +1,9 @@
 package fp.kotlin.example.chapter05.exercise
 
-import fp.kotlin.example.chapter05.FunList
+import fp.kotlin.example.chapter05.*
 import fp.kotlin.example.chapter05.FunList.Cons
 import fp.kotlin.example.chapter05.FunList.Nil
-import fp.kotlin.example.chapter05.funListOf
+import java.lang.IllegalArgumentException
 
 /**
  *
@@ -26,4 +26,8 @@ fun main() {
     require(intList.take(4) == funListOf(1, 2, 3))
 }
 
-tailrec fun <T> FunList<T>.take(n: Int, acc: FunList<T> = Nil): FunList<T> = TODO()
+tailrec fun <T> FunList<T>.take(n: Int, acc: FunList<T> = Nil): FunList<T> = when {
+    n < 0 -> throw IllegalArgumentException()
+    n == 0 || this is Nil -> acc.reverse()
+    else -> getTail().take(n-1, acc.addHead(getHead()))
+}

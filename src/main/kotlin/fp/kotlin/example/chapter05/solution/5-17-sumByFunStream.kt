@@ -1,9 +1,6 @@
 package fp.kotlin.example.chapter05.solution
 
-import fp.kotlin.example.chapter05.FunStream
-import fp.kotlin.example.chapter05.foldLeft
-import fp.kotlin.example.chapter05.funStreamOf
-import fp.kotlin.example.chapter05.toFunStream
+import fp.kotlin.example.chapter05.*
 
 /**
  *
@@ -21,3 +18,5 @@ fun main() {
 }
 
 fun FunStream<Int>.sum(): Int = this.foldLeft(0) { acc, value -> acc + value }
+
+fun FunList<Int>.sum(): Int = foldLeft(0) { acc, x -> acc + x }

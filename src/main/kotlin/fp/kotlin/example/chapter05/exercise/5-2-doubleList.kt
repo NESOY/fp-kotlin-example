@@ -1,6 +1,7 @@
 package fp.kotlin.example.chapter05.exercise
 
 import fp.kotlin.example.chapter05.FunList
+import fp.kotlin.example.chapter05.FunList.Cons
 
 /**
  *
@@ -11,5 +12,5 @@ import fp.kotlin.example.chapter05.FunList
  */
 
 fun main() {
-    val doubleList: FunList<Double> = TODO()
+    val doubleList: FunList<Double> = Cons(1.0, Cons(2.0, Cons(3.0, Cons(4.0, Cons(5.0, FunList.Nil)))))
 }

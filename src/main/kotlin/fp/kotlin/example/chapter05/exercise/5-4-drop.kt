@@ -4,6 +4,8 @@ import fp.kotlin.example.chapter05.FunList
 import fp.kotlin.example.chapter05.FunList.Cons
 import fp.kotlin.example.chapter05.FunList.Nil
 import fp.kotlin.example.chapter05.funListOf
+import fp.kotlin.example.chapter05.getTail
+import java.lang.IllegalArgumentException
 
 /**
  *
@@ -25,4 +27,19 @@ fun main() {
     require(intList.drop(4) == Nil)
 }
 
-tailrec fun <T> FunList<T>.drop(n: Int): FunList<T> = TODO()
+tailrec fun <T> FunList<T>.drop(n: Int): FunList<T> = when(this) {
+    is Nil -> Nil
+    is Cons -> {
+        if (n > 0) {
+            tail.drop(n - 1)
+        } else {
+            this
+        }
+    }
+}
+
+tailrec fun <T> FunList<T>.drop2Refactoring(n: Int): FunList<T> = when {
+    n < 0 -> throw IllegalArgumentException()
+    n == 0 || this === Nil -> this
+    else -> getTail().drop(n-1)
+}

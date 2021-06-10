@@ -3,6 +3,7 @@ package fp.kotlin.example.chapter05.exercise
 import fp.kotlin.example.chapter05.FunList
 import fp.kotlin.example.chapter05.FunList.Cons
 import fp.kotlin.example.chapter05.FunList.Nil
+import fp.kotlin.example.chapter05.addHead
 import fp.kotlin.example.chapter05.funListOf
 
 /**
@@ -21,4 +22,13 @@ fun main() {
     require(intList.dropWhile { it > 5 } == Nil)
 }
 
-tailrec fun <T> FunList<T>.dropWhile(p: (T) -> Boolean): FunList<T> = TODO()
+tailrec fun <T> FunList<T>.dropWhile(p: (T) -> Boolean): FunList<T> = when(this) {
+    is Nil -> this
+    is Cons -> {
+        if (!p(head)) {
+            tail.dropWhile(p)
+        } else {
+            this
+        }
+    }
+}
